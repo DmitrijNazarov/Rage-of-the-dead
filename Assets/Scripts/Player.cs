@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         anim.SetBool("IsAlive", false);
-        sr.flipX = false;
+        sr.flipX = true;
     }
     void Update()
     {
