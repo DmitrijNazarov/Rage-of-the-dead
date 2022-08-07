@@ -56,16 +56,26 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Atack2D.cs" />
+    <Compile Include="Assets\Scripts\Camera.cs" />
+    <Compile Include="Assets\Scripts\CameraFollow2D.cs" />
     <Compile Include="Assets\Downloaded\Free Pixel Art Forest\Demo\MoveBackground.cs" />
+    <Compile Include="Assets\Scripts\Angel.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Mov.cs" />
-    <Compile Include="Assets\Scripts\Camera.cs" />
+    <Compile Include="Assets\Scripts\Pause.cs" />
+    <Compile Include="Assets\Scripts\EnemyHP.cs" />
+    <Compile Include="Assets\Scripts\NPC.cs" />
     <Compile Include="Assets\Scripts\Generation.cs" />
+    <Compile Include="Assets\Scripts\HealthBar.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Downloaded\Gothicvania Cemetery Artwork\about.txt" />
+    <None Include="Assets\Updated\BlackBold + GreyBold Font Pack\Read Me.txt" />
     <None Include="Assets\Downloaded\Dark_Forest\about.txt" />
+    <None Include="Assets\Updated\BlackBold + GreyBold Font Pack\GreyBold\Font Conversion Sheet GreyBold-export.fnt" />
     <None Include="Assets\Downloaded\Free Pixel Art Forest\Lisense.txt" />
+    <None Include="Assets\Updated\BlackBold + GreyBold Font Pack\BlackBold\Conversion sheet-export.fnt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

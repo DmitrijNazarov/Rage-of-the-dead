@@ -8,70 +8,94 @@ public class Player : MonoBehaviour
     [SerializeField] private float speed = 2.5f;
     [SerializeField] private float JumpForse = 1f;
     [SerializeField] private Transform GroundCheck;
-    [SerializeField] private float groundRadius = 0.25f;
+    [SerializeField] private float groundRadius = 0.1f;
     [SerializeField] private LayerMask WhatIsGrounded;
     [SerializeField] private int countJump = 2;
-
+    private bool z = false;
+    private bool x = false;
+    private int anim_count = 0;
     private int _countJump;
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     private Animator anim;
-    private bool IsAlive = false;
-    int anim_count = 0;
-
+    [SerializeField] private Transform punch1;
+    [SerializeField] private float punch1Radius;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-        anim.SetBool("IsAlive", false);
-        sr.flipX = true;
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && _countJump > 1 && IsAlive==true)
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            rb.AddForce(new Vector2(0, JumpForse), ForceMode2D.Impulse);
-            _countJump--;
+            Attack2D.Action(punch1.position, punch1Radius, 8, 12, true);
+            anim.SetTrigger("Atack1");
+            z = true;
         }
-    }
-    void FixedUpdate()
-    {
-        if (IsAlive == true)
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            rb.velocity = new Vector3(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
+            Attack2D.Action(punch1.position, punch1Radius, 8, 12, false);
+            anim.SetTrigger("Atack2");
+            x = true;
+        }
+        if (Input.GetKeyDown(KeyCode.Space) && _countJump > 1)
+            {
+                rb.AddForce(new Vector2(0, JumpForse), ForceMode2D.Impulse);
+                _countJump--;
+            }
+    }
+        void FixedUpdate()
+        {
+
+            rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
             if (rb.velocity.x > 0)
-                sr.flipX = true;
-            else if (rb.velocity.x < 0)
                 sr.flipX = false;
+            else if (rb.velocity.x < 0)
+                sr.flipX = true;
             if (rb.velocity.x != 0)
                 anim.SetBool("IsWalk", true);
             else
                 anim.SetBool("IsWalk", false);
             isGrounded();
-        }
-        else
-        { anim_count++;
-            if (anim_count == 54)
-            {
-                IsAlive = true;
-                anim.SetBool("IsAlive", true);
-            }
-        }
-    }
-    private bool isGrounded()
-    {
-        if (Physics2D.OverlapCircle(GroundCheck.position, groundRadius, WhatIsGrounded))
+            if (z)
         {
-            _countJump = countJump;
-            anim.SetBool("IsJump", false);
-            return true;
+            speed = 0;
+            anim_count++;
         }
-        else
+        if (anim_count == 36)
         {
-            anim.SetBool("IsJump", true);
-            return false;
+            z = false;
+            anim_count = 0;
+            speed = 1.5f;
+        }
+        if (x)
+            {speed = 0;
+            anim_count++;
+        }
+        if (anim_count == 51)
+        {
+            x = false;
+            anim_count = 0;
+            speed = 1.5f;
         }
 
     }
+         private bool isGrounded()
+        {
+            if (Physics2D.OverlapCircle(GroundCheck.position, groundRadius, WhatIsGrounded))
+            {
+                _countJump = countJump;
+                anim.SetBool("IsFall", false);
+                return true;
+            }
+            else
+            {
+                anim.SetBool("IsFall", true);
+                return false;
+            }
+
+        }
+    
 }
